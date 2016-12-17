@@ -16,10 +16,13 @@
 
 package com.android.gallery3d.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 
+import com.android.gallery3d.BuildConfig;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.DownloadCache;
 import com.android.gallery3d.data.ImageCacheService;
@@ -33,6 +36,8 @@ import com.android.gallery3d.util.UsageStatistics;
 import java.io.File;
 
 public class GalleryAppImpl extends Application implements GalleryApp {
+
+    private static final String TAG = "GalleryAppImpl";
 
     private static final String DOWNLOAD_FOLDER = "download";
     private static final long DOWNLOAD_CAPACITY = 64 * 1024 * 1024; // 64M
@@ -51,6 +56,47 @@ public class GalleryAppImpl extends Application implements GalleryApp {
         WidgetUtils.initialize(this);
         PicasaSource.initialize(this);
         UsageStatistics.initialize(this);
+
+        if(BuildConfig.DEBUG)
+        {
+            registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+                @Override
+                public void onActivityCreated(Activity activity, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onActivityStarted(Activity activity) {
+
+                }
+
+                @Override
+                public void onActivityResumed(Activity activity) {
+                    android.util.Log.i(TAG, "onActivityResumed: " + activity.getClass().getName());
+                }
+
+                @Override
+                public void onActivityPaused(Activity activity) {
+
+                }
+
+                @Override
+                public void onActivityStopped(Activity activity) {
+
+                }
+
+                @Override
+                public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onActivityDestroyed(Activity activity) {
+
+                }
+            });
+        }
+
     }
 
     @Override
