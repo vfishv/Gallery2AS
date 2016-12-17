@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "25.0.1"
+
+    defaultConfig {
+        applicationId "com.android.gallery3d"
+        minSdkVersion 22
+        targetSdkVersion 24
+
+        ndk {
+            moduleName "libjni_eglfence"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    sourceSets {
+        main.java.srcDirs += ['src_pd','gallerycommon','xmp_toolkit']
+        main.jni.srcDirs=[]
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v13:23.2.1'
+    compile 'com.googlecode.mp4parser:isoparser:latest.release'
+    //compile project(':gallerycommon')
+}
